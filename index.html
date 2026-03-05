@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hugo Souza Simulator - Penalty Keeper</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <div id="game-container">
         <!-- SCOREBOARD -->
@@ -22,12 +26,12 @@
                     <span class="team-name">RIVAL</span>
                 </div>
             </div>
-            
+
             <div class="progress-container glass">
                 <div id="shots-counter-home" class="shots-dots"></div>
                 <div id="shots-counter-away" class="shots-dots"></div>
             </div>
-            
+
             <div id="game-status" class="status-msg">ESCOLHA SEU LADO!</div>
         </header>
 
@@ -40,7 +44,7 @@
                 <div class="goal-zone" data-zone="bottom-left" id="zone-bl"></div>
                 <div class="goal-zone" data-zone="bottom-right" id="zone-br"></div>
                 <div class="goal-zone" data-zone="center" id="zone-c"></div>
-                
+
                 <div id="goalkeeper" class="ready"></div>
                 <div id="ball"></div>
             </div>
@@ -48,9 +52,15 @@
 
         <!-- START/RESTART OVERLAY -->
         <div id="overlay" class="glass-heavy">
-            <h1 class="main-title">HUGO SOUZA<span>SIMULATOR</span></h1>
-            <p class="subtitle">Penalty Keeper Edition</p>
-            <button id="start-btn" class="glow-btn">INICIAR PARTIDA</button>
+            <div class="menu-content">
+                <div class="menu-visuals">
+                    <img src="goalkeeper.png" class="menu-gk" alt="Hugo Souza">
+                    <img src="ball.png" class="menu-ball" alt="Ball">
+                </div>
+                <h1 class="main-title">HUGO SOUZA<span>SIMULATOR</span></h1>
+                <p class="subtitle">Penalty Keeper Edition</p>
+                <button id="start-btn" class="glow-btn">ENTRAR NO CAMPO</button>
+            </div>
         </div>
 
         <!-- NOTIFICATIONS -->
@@ -61,4 +71,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

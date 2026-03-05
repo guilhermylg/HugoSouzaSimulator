@@ -102,12 +102,19 @@ body {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
-.dot.green { background: var(--success); box-shadow: 0 0 8px var(--success); }
-.dot.red { background: var(--fail); box-shadow: 0 0 8px var(--fail); }
+.dot.green {
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success);
+}
+
+.dot.red {
+    background: var(--fail);
+    box-shadow: 0 0 8px var(--fail);
+}
 
 .status-msg {
     font-size: 1.5rem;
@@ -148,14 +155,44 @@ body {
 
 .goal-zone:hover {
     background: rgba(168, 85, 247, 0.1);
-    border: 2px dashed rgba(255,255,255,0.2);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
 }
 
-#zone-tl { top: 10%; left: 15%; width: 25%; height: 35%; }
-#zone-tr { top: 10%; right: 15%; width: 25%; height: 35%; }
-#zone-bl { bottom: 10%; left: 15%; width: 25%; height: 35%; }
-#zone-br { bottom: 10%; right: 15%; width: 25%; height: 35%; }
-#zone-c { top: 35%; left: 40%; width: 20%; height: 30%; border-radius: 50%; }
+#zone-tl {
+    top: 10%;
+    left: 15%;
+    width: 25%;
+    height: 35%;
+}
+
+#zone-tr {
+    top: 10%;
+    right: 15%;
+    width: 25%;
+    height: 35%;
+}
+
+#zone-bl {
+    bottom: 10%;
+    left: 15%;
+    width: 25%;
+    height: 35%;
+}
+
+#zone-br {
+    bottom: 10%;
+    right: 15%;
+    width: 25%;
+    height: 35%;
+}
+
+#zone-c {
+    top: 35%;
+    left: 40%;
+    width: 20%;
+    height: 30%;
+    border-radius: 50%;
+}
 
 /* GAME ENTITIES */
 #goalkeeper {
@@ -170,21 +207,22 @@ body {
     background-position: center bottom;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 5;
-    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
 
 #ball {
     position: absolute;
-    width: 32px;
-    height: 32px;
-    bottom: -50px; /* Initially off-screen or at shooter feet */
-    left: calc(50% - 16px);
+    width: 40px;
+    height: 40px;
+    bottom: 20px;
+    /* Visible position at start */
+    left: calc(50% - 20px);
     background-image: url('ball.png');
     background-size: contain;
     background-repeat: no-repeat;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 15;
-    filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
 }
 
 /* OVERLAY */
@@ -212,27 +250,79 @@ body {
     pointer-events: none;
 }
 
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.menu-visuals {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin-bottom: 2rem;
+}
+
+.menu-gk {
+    width: 250px;
+    height: auto;
+    filter: drop-shadow(0 0 20px var(--accent));
+    animation: float 3s ease-in-out infinite;
+}
+
+.menu-ball {
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+    width: 80px;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+    animation: spin 10s linear infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .main-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 4rem;
+    font-size: 5rem;
     font-weight: 900;
     color: white;
-    text-shadow: 0 0 20px var(--accent);
+    text-shadow: 0 0 30px var(--accent);
     margin-bottom: -10px;
 }
 
 .main-title span {
     display: block;
-    font-size: 1.5rem;
-    letter-spacing: 12px;
+    font-size: 2rem;
+    letter-spacing: 15px;
     font-weight: 300;
     color: var(--accent);
 }
 
 .subtitle {
-    font-size: 1.2rem;
-    letter-spacing: 4px;
-    opacity: 0.6;
+    font-size: 1.5rem;
+    letter-spacing: 6px;
+    opacity: 0.8;
     margin-bottom: 3rem;
 }
 
@@ -278,19 +368,59 @@ body {
 }
 
 /* Animations Classes */
-.dive-tl { transform: translate(-180px, -150px) rotate(-15deg); }
-.dive-tr { transform: translate(180px, -150px) rotate(15deg); }
-.dive-bl { transform: translate(-180px, 0px) rotate(-30deg); }
-.dive-br { transform: translate(180px, 0px) rotate(30deg); }
-.stay-c { transform: scale(1.1); }
+.dive-tl {
+    transform: translate(-180px, -150px) rotate(-15deg);
+}
 
-.ball-tl { bottom: 310px; left: 24%; }
-.ball-tr { bottom: 310px; left: 71%; }
-.ball-bl { bottom: 90px; left: 24%; }
-.ball-br { bottom: 90px; left: 71%; }
-.ball-c  { bottom: 180px; left: 48%; }
+.dive-tr {
+    transform: translate(180px, -150px) rotate(15deg);
+}
+
+.dive-bl {
+    transform: translate(-180px, 0px) rotate(-30deg);
+}
+
+.dive-br {
+    transform: translate(180px, 0px) rotate(30deg);
+}
+
+.stay-c {
+    transform: scale(1.1);
+}
+
+.ball-tl {
+    bottom: 310px;
+    left: 24%;
+}
+
+.ball-tr {
+    bottom: 310px;
+    left: 71%;
+}
+
+.ball-bl {
+    bottom: 90px;
+    left: 24%;
+}
+
+.ball-br {
+    bottom: 90px;
+    left: 71%;
+}
+
+.ball-c {
+    bottom: 180px;
+    left: 48%;
+}
 
 @media (max-width: 900px) {
-    #goal-container { width: 100%; height: auto; aspect-ratio: 16/9; }
-    .main-title { font-size: 2.5rem; }
+    #goal-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+    }
+
+    .main-title {
+        font-size: 2.5rem;
+    }
 }

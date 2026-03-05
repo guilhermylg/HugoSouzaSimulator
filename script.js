@@ -73,7 +73,7 @@ function startRound() {
     // Reset positions
     elements.goalkeeper.className = '';
     elements.ball.className = '';
-    elements.ball.style.bottom = "-50px";
+    elements.ball.style.bottom = "20px";
 
     if (state.isPlayerDefending) {
         elements.status.textContent = "DEFENDA! ESCOLHA UM CANTO";
