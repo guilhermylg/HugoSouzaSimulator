@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugo Souza Simulator - Penalty Keeper</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <!-- SCOREBOARD -->
+        <header id="ui-header">
+            <div class="scoreboard glass">
+                <div class="team-info">
+                    <span class="team-name">TIMÃO</span>
+                    <span id="score-home" class="score-number">0</span>
+                </div>
+                <div class="score-divider">VS</div>
+                <div class="team-info">
+                    <span id="score-away" class="score-number">0</span>
+                    <span class="team-name">RIVAL</span>
+                </div>
+            </div>
+            
+            <div class="progress-container glass">
+                <div id="shots-counter-home" class="shots-dots"></div>
+                <div id="shots-counter-away" class="shots-dots"></div>
+            </div>
+            
+            <div id="game-status" class="status-msg">ESCOLHA SEU LADO!</div>
+        </header>
+
+        <!-- MAIN GAME FIELD -->
+        <main id="game-field">
+            <div id="goal-container">
+                <!-- Goal Areas (Clickable) -->
+                <div class="goal-zone" data-zone="top-left" id="zone-tl"></div>
+                <div class="goal-zone" data-zone="top-right" id="zone-tr"></div>
+                <div class="goal-zone" data-zone="bottom-left" id="zone-bl"></div>
+                <div class="goal-zone" data-zone="bottom-right" id="zone-br"></div>
+                <div class="goal-zone" data-zone="center" id="zone-c"></div>
+                
+                <div id="goalkeeper" class="ready"></div>
+                <div id="ball"></div>
+            </div>
+        </main>
+
+        <!-- START/RESTART OVERLAY -->
+        <div id="overlay" class="glass-heavy">
+            <h1 class="main-title">HUGO SOUZA<span>SIMULATOR</span></h1>
+            <p class="subtitle">Penalty Keeper Edition</p>
+            <button id="start-btn" class="glow-btn">INICIAR PARTIDA</button>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div id="alert-popup" class="hidden">
+            <span id="alert-text">DEFESA!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
