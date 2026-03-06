@@ -1,74 +1,139 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hugo Souza Simulator - Penalty Keeper</title>
+    <title>Penalty Fever - Majestoso na Arena</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap"
-        rel="stylesheet">
 </head>
 
 <body>
-    <div id="game-container">
-        <!-- SCOREBOARD -->
-        <header id="ui-header">
-            <div class="scoreboard glass">
-                <div class="team-info">
-                    <span class="team-name">TIMÃO</span>
-                    <span id="score-home" class="score-number">0</span>
+    <div id="game-container"
+        class="position-relative overflow-hidden w-100 h-100 d-flex justify-content-center align-items-center">
+        <!-- Stadium Background Layers -->
+        <div class="field-background position-absolute top-0 start-0 w-100 h-100"></div>
+        <div class="stadium-lights"></div>
+
+        <!-- Top UI: Scoreboard & Instructions -->
+        <div id="top-ui"
+            class="position-absolute top-0 w-100 p-4 d-flex flex-column align-items-center z-3 pointer-events-none">
+
+            <header id="scoreboard"
+                class="glass-panel px-4 py-3 d-flex justify-content-between align-items-center mb-3">
+                <div class="team corinthians text-center">
+                    <h2 class="mb-2 uppercase tracking-wide">COR</h2>
+                    <div class="dots justify-content-center" id="dots-cor"></div>
                 </div>
-                <div class="score-divider">VS</div>
-                <div class="team-info">
-                    <span id="score-away" class="score-number">0</span>
-                    <span class="team-name">RIVAL</span>
+
+                <div class="score text-center d-flex align-items-center px-4">
+                    <span id="score-cor" class="display-4 fw-black">0</span>
+                    <span class="vs mx-3 text-muted fs-4">x</span>
+                    <span id="score-sao" class="display-4 fw-black">0</span>
                 </div>
-            </div>
 
-            <div class="progress-container glass">
-                <div id="shots-counter-home" class="shots-dots"></div>
-                <div id="shots-counter-away" class="shots-dots"></div>
-            </div>
-
-            <div id="game-status" class="status-msg">ESCOLHA SEU LADO!</div>
-        </header>
-
-        <!-- MAIN GAME FIELD -->
-        <main id="game-field">
-            <div id="goal-container">
-                <!-- Goal Areas (Clickable) -->
-                <div class="goal-zone" data-zone="top-left" id="zone-tl"></div>
-                <div class="goal-zone" data-zone="top-right" id="zone-tr"></div>
-                <div class="goal-zone" data-zone="bottom-left" id="zone-bl"></div>
-                <div class="goal-zone" data-zone="bottom-right" id="zone-br"></div>
-                <div class="goal-zone" data-zone="center" id="zone-c"></div>
-
-                <div id="goalkeeper" class="ready"></div>
-                <div id="ball"></div>
-            </div>
-        </main>
-
-        <!-- START/RESTART OVERLAY -->
-        <div id="overlay" class="glass-heavy">
-            <div class="menu-content">
-                <div class="menu-visuals">
-                    <img src="goalkeeper.png" class="menu-gk" alt="Hugo Souza">
-                    <img src="ball.png" class="menu-ball" alt="Ball">
+                <div class="team saopaulo text-center">
+                    <h2 class="mb-2 uppercase tracking-wide">CFC</h2> <!-- Using CFC/SAO visually -->
+                    <div class="dots justify-content-center" id="dots-sao"></div>
                 </div>
-                <h1 class="main-title">HUGO SOUZA<span>SIMULATOR</span></h1>
-                <p class="subtitle">Penalty Keeper Edition</p>
-                <button id="start-btn" class="glow-btn">ENTRAR NO CAMPO</button>
+            </header>
+
+            <div id="instruction-panel"
+                class="instruction-box px-4 py-2 text-center glass-panel hidden opacity-0 transition-opacity">
+                <span id="instruction-text" class="fs-5 fw-bold text-uppercase tracking-wider">PREPARE-SE</span>
             </div>
         </div>
 
-        <!-- NOTIFICATIONS -->
-        <div id="alert-popup" class="hidden">
-            <span id="alert-text">DEFESA!</span>
+        <!-- 3D Goal Area -->
+        <div id="goal-area" class="position-absolute z-1">
+            <div class="goal-posts position-relative w-100 h-100">
+                <!-- 3x3 Interaction Grid -->
+                <!-- Zone indexes: 1=TL, 2=TC, 3=TR, 4=ML, 5=MC, 6=MR, 7=BL, 8=BC, 9=BR -->
+                <div class="zone" data-zone="1"></div>
+                <div class="zone" data-zone="2"></div>
+                <div class="zone" data-zone="3"></div>
+                <div class="zone" data-zone="4"></div>
+                <div class="zone" data-zone="5"></div>
+                <div class="zone" data-zone="6"></div>
+                <div class="zone" data-zone="7"></div>
+                <div class="zone" data-zone="8"></div>
+                <div class="zone" data-zone="9"></div>
+
+                <!-- Goalkeeper Sprite -->
+                <div id="goalkeeper" class="gk-idle transition-transform">
+                    <div class="gk-head"></div>
+                    <div class="gk-body">
+                        <div class="gk-arm left"></div>
+                        <div class="gk-arm right"></div>
+                        <div class="gk-1 text-center mt-2 fw-bold" style="color:#000; font-size:12px">12</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ball -->
+        <div id="stadium-ball" class="ball-on-pitch z-2 transition-transform">
+            <div class="ball-visual"></div>
+            <div class="ball-shadow"></div>
+        </div>
+
+        <!-- Kick UI (Aim & Power) -->
+        <div id="kick-ui"
+            class="position-absolute bottom-0 mb-4 d-flex flex-column align-items-center z-3 hidden opacity-0 transition-opacity">
+            <div class="aim-container mb-2">
+                <div id="aim-arrow"></div>
+            </div>
+
+            <div class="power-bar-container glass-panel shadow-lg">
+                <div id="power-fill"></div>
+                <div class="risk-zone"></div>
+            </div>
+            <p class="mt-2 text-muted fw-bold tracking-widest small">CLIQUE PARA TRAVAR</p>
+        </div>
+
+        <!-- Overlays -->
+        <div id="menu-overlay"
+            class="overlay active d-flex flex-column justify-content-center align-items-center text-center">
+            <div class="glass-panel p-5 rounded-4 shadow-lg border border-secondary border-opacity-25"
+                style="max-width: 600px;">
+                <h6 class="text-uppercase text-muted letter-spacing-4 mb-3">Bem-vindo ao</h6>
+                <h1 class="display-3 fw-black mb-4 text-shadow-gold">MAJESTOSO<br>NA ARENA</h1>
+                <p class="fs-5 text-secondary mb-5 px-3">Enfrente a imensidão da casa do Timão. Bata os pênaltis
+                    perfeitos ou voe como Cássio para defender!</p>
+                <button id="btn-start"
+                    class="btn btn-primary btn-gold btn-lg text-uppercase px-5 py-3 fw-bold tracking-wider rounded-pill">Jogar
+                    Agora</button>
+            </div>
+        </div>
+
+        <div id="popup-overlay"
+            class="popup hidden d-flex justify-content-center align-items-center pointer-events-none">
+            <div class="popup-content px-5 py-4 text-center">
+                <h2 id="popup-text" class="m-0 text-shadow-deep">GOL DO TIMÃO!</h2>
+            </div>
+        </div>
+
+        <div id="game-over-overlay"
+            class="overlay hidden d-flex flex-column justify-content-center align-items-center text-center">
+            <div class="glass-panel p-5 rounded-4 border border-warning">
+                <h6 class="text-uppercase text-warning letter-spacing-4 mb-2">FIM DE JOGO</h6>
+                <h1 id="game-over-title" class="display-4 fw-black mb-5 text-white">CORINTHIANS VENCE!</h1>
+                <button id="btn-restart"
+                    class="btn btn-outline-light btn-lg text-uppercase px-5 py-3 fw-bold tracking-wider rounded-pill">Jogar
+                    Novamente</button>
+            </div>
         </div>
     </div>
 
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 
